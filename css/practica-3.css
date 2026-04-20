@@ -11,7 +11,7 @@ body{background:var(--bg);color:var(--txt);font-family:var(--sans);height:100vh;
 
 /* NAV */
 header{display:flex;align-items:center;border-bottom:1px solid var(--b0);background:var(--s1);height:46px;flex-shrink:0}
-.logo{padding:0 18px;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--acc);letter-spacing:3px;text-transform:uppercase;border-right:1px solid var(--b0);height:100%;display:flex;align-items:center;flex-shrink:0}
+.logo{padding:0 18px;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--acc);letter-spacing:3px;text-transform:uppercase;border-right:1px solid var(--b0);height:100%;display:flex;align-items:center;flex-shrink:0;text-decoration:none}
 .mode-tabs{display:flex;height:100%}
 .mode-tab{padding:0 20px;font-family:var(--mono);font-size:10px;color:var(--txt2);cursor:pointer;border:none;background:transparent;border-right:1px solid var(--b0);height:100%;letter-spacing:0.8px;transition:all 0.13s;text-transform:uppercase;position:relative}
 .mode-tab:hover{color:var(--txt);background:var(--b0)}
