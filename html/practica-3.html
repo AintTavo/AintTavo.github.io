@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MatrixLab</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<link rel="stylesheet" href="../css/practica-3.css"/>
+</head>
+<body>
+
+<header>
+  <div class="logo">ML</div>
+  <div class="mode-tabs">
+    <button class="mode-tab active" onclick="setMode('pure',this)">Álgebra Pura</button>
+    <button class="mode-tab" onclick="setMode('modular',this)">Álgebra Modular</button>
+  </div>
+  <div class="hdr-right">WASM · RUST</div>
+</header>
+
+<div class="config-bar">
+  <span class="cfg-label">Dimensión</span>
+  <div class="dim-btns">
+    <button class="dim-btn active" onclick="setDim(2,this)">2×2</button>
+    <button class="dim-btn" onclick="setDim(3,this)">3×3</button>
+  </div>
+  <div class="cfg-sep"></div>
+  <div class="mod-wrap" id="mod-wrap">
+    <span class="mod-lbl">mod m =</span>
+    <input type="number" class="mod-inp" id="global-mod" value="26" min="1"/>
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner" id="tb-pure">
+    <div class="tb-group">
+      <div class="tb-glabel">escalar</div>
+      <button class="tb-btn active" onclick="selectOp('det',this)">
+        <span class="tb-sym">det</span><span class="tb-name">Determinante</span>
+      </button>
+    </div>
+    <div class="tb-group">
+      <div class="tb-glabel">unarias</div>
+      <button class="tb-btn" onclick="selectOp('trans',this)">
+        <span class="tb-sym">Aᵀ</span><span class="tb-name">Transpuesta</span>
+      </button>
+      <button class="tb-btn" onclick="selectOp('adj',this)">
+        <span class="tb-sym">adj</span><span class="tb-name">Adjunta</span>
+      </button>
+      <button class="tb-btn" onclick="selectOp('inv',this)">
+        <span class="tb-sym">A⁻¹</span><span class="tb-name">Inversa</span>
+      </button>
+    </div>
+    <div class="tb-group">
+      <div class="tb-glabel">con escalar</div>
+      <button class="tb-btn" onclick="selectOp('esc',this)">
+        <span class="tb-sym">×k</span><span class="tb-name">Escalar ℤ</span>
+      </button>
+      <button class="tb-btn" onclick="selectOp('escf',this)">
+        <span class="tb-sym">×f</span><span class="tb-name">Escalar ℝ</span>
+      </button>
+    </div>
+    <div class="tb-group">
+      <div class="tb-glabel">binarias</div>
+      <button class="tb-btn" onclick="selectOp('add',this)">
+        <span class="tb-sym">A+B</span><span class="tb-name">Suma</span>
+      </button>
+      <button class="tb-btn" onclick="selectOp('mul',this)">
+        <span class="tb-sym">A·B</span><span class="tb-name">Producto</span>
+      </button>
+    </div>
+  </div>
+  <div class="tb-inner" id="tb-modular" style="display:none">
+    <div class="tb-group">
+      <div class="tb-glabel">módulo</div>
+      <button class="tb-btn active" onclick="selectOp('mmod',this)">
+        <span class="tb-sym">A%m</span><span class="tb-name">Módulo</span>
+      </button>
+      <button class="tb-btn" onclick="selectOp('minv',this)">
+        <span class="tb-sym">A⁻¹</span><span class="tb-name">Inversa mod</span>
+      </button>
+    </div>
+    <div class="tb-group">
+      <div class="tb-glabel">con escalar</div>
+      <button class="tb-btn" onclick="selectOp('mesc',this)">
+        <span class="tb-sym">k·m</span><span class="tb-name">Escalar mod</span>
+      </button>
+    </div>
+    <div class="tb-group">
+      <div class="tb-glabel">binarias</div>
+      <button class="tb-btn" onclick="selectOp('madd',this)">
+        <span class="tb-sym">+m</span><span class="tb-name">Suma mod</span>
+      </button>
+      <button class="tb-btn" onclick="selectOp('mmul',this)">
+        <span class="tb-sym">·m</span><span class="tb-name">Producto mod</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- B-MATRIX BAR (binary ops) -->
+<div class="b-bar" id="b-bar">
+  <span class="b-lbl">Matriz B</span>
+  <div class="b-bracket">[</div>
+  <div id="b-grid"></div>
+  <div class="b-bracket">]</div>
+  <span class="op-sym-big" id="op-sym-display">+</span>
+  <span style="font-family:var(--mono);font-size:9px;color:var(--txt3)">↑ presiona ejecutar abajo</span>
+</div>
+
+<div class="workspace">
+  <!-- LEFT: scalar -->
+  <div class="left-panel hidden" id="left-panel">
+    <div class="sc-group" id="sc-k" style="display:none">
+      <span class="sc-lbl">escalar k</span>
+      <input type="number" class="sc-inp" id="inp-k" value="3"/>
+    </div>
+    <div class="sc-group" id="sc-f" style="display:none">
+      <span class="sc-lbl">factor f</span>
+      <input type="number" class="sc-inp" id="inp-f" value="0.5" step="0.1"/>
+    </div>
+  </div>
+
+  <!-- CENTER -->
+  <div class="mat-center">
+    <span class="mat-top-lbl">Matriz A</span>
+    <div class="mat-wrap">
+      <div class="a-bracket">[</div>
+      <div id="a-grid"></div>
+      <div class="a-bracket">]</div>
+    </div>
+    <div class="run-row">
+      <button class="run-btn" onclick="runOp()">Ejecutar</button>
+      <span class="run-hint" id="run-hint">det(A)</span>
+    </div>
+  </div>
+
+  <!-- RIGHT: result -->
+  <div class="res-panel">
+    <span class="res-tag">resultado</span>
+    <div id="res-display"><div class="res-empty">presiona<br/>ejecutar</div></div>
+    <span class="res-fn" id="res-fn"></span>
+  </div>
+</div>
+
+<div class="wasm-notice" id="wasm-notice">WASM no cargado — ajusta la ruta del pkg en el script</div>
+
+<script type="module" src="../js/practica-3/practica-3.js"></script>
+</body>
+</html>
