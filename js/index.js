@@ -19,7 +19,7 @@ const projects = [
     icon: 'ML',
     desc: 'Linear algebra engine (pure & modular) — determinant, inverse, adjugate, transposed, scalar and matrix multiplication, all mod-m variants.',
     tags: ['wasm', 'rust', 'linear-algebra', 'cryptography'],
-    path: 'html/index.html',
+    path: 'html/practica-3.html',
   },
   // Add more projects below, e.g.:
   // {
