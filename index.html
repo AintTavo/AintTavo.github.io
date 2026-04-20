@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AintTavo — Gustavo Zaragoza</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/index.css"/>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#" onclick="showPage('home')">AT</a>
+  <nav class="nav-links">
+    <a class="nav-link active" href="#" onclick="showPage('home');return false">Home</a>
+    <a class="nav-link" href="#" onclick="showPage('projects');return false">Projects</a>
+    <a class="nav-link" href="https://github.com/AintTavo" target="_blank">GitHub ↗</a>
+  </nav>
+  <div class="nav-right">SYS · NANO · WASM</div>
+</header>
+
+<!-- ══════════════ HOME ══════════════ -->
+<div id="page-home" class="page active">
+<div class="home-wrap">
+
+  <section class="hero">
+    <div class="hero-tag">Portfolio</div>
+    <div class="hero-name">Gustavo<br><span>Zaragoza</span></div>
+    <div class="hero-aka">a.k.a AintTavo</div>
+    <p class="hero-desc">
+      Computer Systems Engineer working at the intersection of high-performance systems, low-level programming, and emerging nanotechnology research. I build things that run fast, close to hardware, and occasionally in a browser via WebAssembly.
+    </p>
+    <div class="hero-badges">
+      <span class="badge hi">Rust</span>
+      <span class="badge hi">WebAssembly</span>
+      <span class="badge hi">C</span>
+      <span class="badge">Systems Eng.</span>
+      <span class="badge">IoT / LoRaWAN</span>
+      <span class="badge">Nanotechnology</span>
+      <span class="badge">Linux</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-header">
+      <span class="sec-num">01</span>
+      <span class="sec-title">Tech Stack</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-block fade-up">
+        <div class="skill-block-title">Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag accent">Rust</span>
+          <span class="skill-tag accent">C</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Bash</span>
+        </div>
+      </div>
+      <div class="skill-block fade-up">
+        <div class="skill-block-title">Web & WASM</div>
+        <div class="skill-tags">
+          <span class="skill-tag accent">WebAssembly</span>
+          <span class="skill-tag accent">wasm-pack</span>
+          <span class="skill-tag">wasm-bindgen</span>
+          <span class="skill-tag">HTML / CSS</span>
+        </div>
+      </div>
+      <div class="skill-block fade-up">
+        <div class="skill-block-title">Systems</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Fedora KDE</span>
+          <span class="skill-tag">Ubuntu LTS</span>
+          <span class="skill-tag">macOS ARM</span>
+          <span class="skill-tag accent">systemd</span>
+          <span class="skill-tag">crontab</span>
+          <span class="skill-tag">rclone</span>
+        </div>
+      </div>
+      <div class="skill-block fade-up">
+        <div class="skill-block-title">IoT & Hardware</div>
+        <div class="skill-tags">
+          <span class="skill-tag accent">LoRaWAN</span>
+          <span class="skill-tag accent">MQTT</span>
+          <span class="skill-tag">AgroTech</span>
+          <span class="skill-tag">Sensors</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-header">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Learning Path</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="path-list">
+      <div class="path-item fade-up">
+        <div class="path-dot"></div>
+        <div>
+          <div class="path-label">Currently</div>
+          <div class="path-text">Preparing for a <strong>Master's in Nanotechnology</strong> — bridging computer engineering with molecular-scale systems design.</div>
+        </div>
+      </div>
+      <div class="path-item fade-up">
+        <div class="path-dot"></div>
+        <div>
+          <div class="path-label">Research Focus</div>
+          <div class="path-text">Exploring the <strong>application of software engineering in nanotech</strong> — simulation, control systems, and data pipelines for nano-scale hardware.</div>
+        </div>
+      </div>
+      <div class="path-item fade-up">
+        <div class="path-dot"></div>
+        <div>
+          <div class="path-label">Languages</div>
+          <div class="path-text"><strong>Spanish</strong> (Native) · <strong>English</strong> (B2) · <strong>German</strong> (B1)</div>
+        </div>
+      </div>
+      <div class="path-item fade-up">
+        <div class="path-dot"></div>
+        <div>
+          <div class="path-label">Side Track</div>
+          <div class="path-text">Compiling <strong>Rust → WebAssembly</strong> to ship performance-critical algorithms directly in the browser with no runtime overhead.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-header">
+      <span class="sec-num">03</span>
+      <span class="sec-title">Beyond the Code</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="beyond-grid">
+      <div class="beyond-card fade-up">
+        <div class="beyond-icon">☕</div>
+        <div class="beyond-title">French Press Ritual</div>
+        <div class="beyond-text">Brewing the perfect cup is a repeatable experiment — grind size, water temp, steep time. Optimized.</div>
+      </div>
+      <div class="beyond-card fade-up">
+        <div class="beyond-icon">♪</div>
+        <div class="beyond-title">The Cure & MCR</div>
+        <div class="beyond-text">Post-punk and emo for late-night debug sessions. Disintegration and Three Cheers on repeat.</div>
+      </div>
+      <div class="beyond-card fade-up">
+        <div class="beyond-icon">🔬</div>
+        <div class="beyond-title">Nano Dreams</div>
+        <div class="beyond-text">Reading about molecular machines and wondering how to deploy a Rust binary at 10nm scale.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+<div class="footer">
+  <div class="footer-dot"></div>
+  <span>Gustavo Zaragoza Guerrero</span>
+  <div class="footer-dot"></div>
+  <span>AintTavo</span>
+  <div class="footer-dot"></div>
+  <span>Computer Systems Engineer</span>
+</div>
+</div>
+
+<!-- ══════════════ PROJECTS ══════════════ -->
+<div id="page-projects" class="page">
+<div class="proj-wrap">
+
+  <div class="proj-header">
+    <div class="proj-header-tag">Projects</div>
+    <h1>WASM &amp; Systems</h1>
+    <p>High-performance modules compiled from Rust, running in the browser.</p>
+  </div>
+
+  <div id="proj-grid" class="proj-grid">
+    <!-- populated by JS -->
+  </div>
+
+</div>
+</div>
+
+<script src="./js/index.js"></script>
+</body>
+</html>
