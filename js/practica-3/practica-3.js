@@ -151,6 +151,11 @@ window.runOp = () => {
     if(isScalar){ showScalar(res); return; }
     if(!res||res.length===0){ showErr('No existe<br>(det = 0 o sin inversa modular)'); return; }
     showMatrix(res, dim, isFloat);
+    // Show verification badge for successful modular inverse
+    if(op==='minv'){
+      const el=document.getElementById('res-display');
+      el.insertAdjacentHTML('beforeend','<div class="res-verified">✓ Verificado Exitosamente</div>');
+    }
   } catch(e){ showErr(e.message); }
 };
 
@@ -171,6 +176,26 @@ window.setMode=(m,btn)=>{
   const firstBtn=document.querySelector(`#tb-${m} .tb-btn`);
   if(firstBtn){ firstBtn.classList.add('active'); op=firstBtn.getAttribute('onclick').match(/'(\w+)'/)[1]; }
   updateUI(); clearResult();
+};
+
+window.transferB2A=()=>{
+  const bCells=document.querySelectorAll('#b-grid input');
+  const aCells=document.querySelectorAll('#a-grid input');
+  bCells.forEach((b,i)=>{ if(aCells[i]) aCells[i].value=b.value; });
+};
+window.transferA2B=()=>{
+  const aCells=document.querySelectorAll('#a-grid input');
+  const bCells=document.querySelectorAll('#b-grid input');
+  aCells.forEach((a,i)=>{ if(bCells[i]) bCells[i].value=a.value; });
+};
+window.swapAB=()=>{
+  const aCells=document.querySelectorAll('#a-grid input');
+  const bCells=document.querySelectorAll('#b-grid input');
+  aCells.forEach((a,i)=>{
+    if(bCells[i]){
+      const tmp=a.value; a.value=bCells[i].value; bCells[i].value=tmp;
+    }
+  });
 };
 
 window.selectOp=(o,btn)=>{

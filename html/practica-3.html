@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>MatrixLab</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-
-<link rel="stylesheet" href="../css/practica-3.css"/>
+<link rel="stylesheet" href="../css/practica-3.css">
 </head>
 <body>
 
@@ -107,6 +106,11 @@
   <div class="b-bracket">]</div>
   <span class="op-sym-big" id="op-sym-display">+</span>
   <span style="font-family:var(--mono);font-size:9px;color:var(--txt3)">↑ presiona ejecutar abajo</span>
+  <div class="b-transfer-group">
+    <button class="b-xfer-btn" onclick="transferB2A()" title="Copiar valores de B a A">B → A</button>
+    <button class="b-xfer-btn" onclick="swapAB()" title="Intercambiar A y B">A ↔ B</button>
+    <button class="b-xfer-btn" onclick="transferA2B()" title="Copiar valores de A a B">A → B</button>
+  </div>
 </div>
 
 <div class="workspace">
