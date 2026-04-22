@@ -93,7 +93,7 @@ const techCerts = [
   logoFallback: 'TL',
   desc: 'Participation certificate for attending as a Volunteer in the Contents area on the year 2026',
   tags: ['Soft Skills', 'Volunteer'],
-  pdf: '../docs/pdf/cert_talentland.pdf',
+  pdf: '../html/doc-pages/cert_talentland.html',
  }
 ];
 
