@@ -9,6 +9,24 @@ function showPage(id) {
   if (id === 'projects') renderProjects();
 }
 
+// ── Burger menu ───────────────────────────────────────────
+function toggleBurger() {
+  const btn = document.getElementById('burger-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+}
+
+function mobileNav(id) {
+  showPage(id);
+  // close menu
+  document.getElementById('burger-btn').classList.remove('open');
+  document.getElementById('mobile-menu').classList.remove('open');
+  // update mobile active links
+  document.querySelectorAll('.mobile-menu-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('mob-' + id)?.classList.add('active');
+}
+
 // ── Projects list ─────────────────────────────────────────
 // Each entry links to a file inside /html/ relative to this page.
 // Add your projects here as the folder grows.

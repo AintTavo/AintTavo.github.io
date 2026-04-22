@@ -17,7 +17,71 @@
     <button class="mode-tab" onclick="setMode('modular',this)">Álgebra Modular</button>
   </div>
   <div class="hdr-right">WASM · RUST</div>
+  <button class="p3-burger-btn" id="p3-burger" aria-label="Menú" onclick="toggleP3Burger()">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+
+<!-- Mobile/Tablet overlay menu -->
+<div class="p3-mobile-menu" id="p3-mobile-menu">
+  <!-- Mode toggle -->
+  <div class="pmm-mode-row">
+    <button class="pmm-mode-btn active" id="pmm-mode-pure" onclick="pmobileSetMode('pure')">Álgebra Pura</button>
+    <button class="pmm-mode-btn" id="pmm-mode-modular" onclick="pmobileSetMode('modular')">Álgebra Modular</button>
+  </div>
+  <!-- Dimension & mod config -->
+  <div class="pmm-config">
+    <span class="cfg-label">Dim</span>
+    <div class="dim-btns">
+      <button class="dim-btn active" id="pmm-dim2" onclick="pmobileDim(2)">2×2</button>
+      <button class="dim-btn" id="pmm-dim3" onclick="pmobileDim(3)">3×3</button>
+    </div>
+    <div id="pmm-mod-wrap" style="display:none;align-items:center;gap:6px">
+      <span class="mod-lbl">mod m =</span>
+      <input type="number" class="mod-inp" id="pmm-global-mod" value="26" min="1" oninput="syncMod(this.value)"/>
+    </div>
+  </div>
+  <!-- Pure ops -->
+  <div id="pmm-pure-ops">
+    <div class="pmm-section">
+      <div class="pmm-section-title">Escalar</div>
+      <button class="pmm-btn active" id="pmm-det" onclick="pmobileOp('det',this)"><span class="pmm-sym">det</span>Determinante</button>
+    </div>
+    <div class="pmm-section">
+      <div class="pmm-section-title">Unarias</div>
+      <button class="pmm-btn" id="pmm-trans" onclick="pmobileOp('trans',this)"><span class="pmm-sym">Aᵀ</span>Transpuesta</button>
+      <button class="pmm-btn" id="pmm-adj" onclick="pmobileOp('adj',this)"><span class="pmm-sym">adj</span>Adjunta</button>
+      <button class="pmm-btn" id="pmm-inv" onclick="pmobileOp('inv',this)"><span class="pmm-sym">A⁻¹</span>Inversa</button>
+    </div>
+    <div class="pmm-section">
+      <div class="pmm-section-title">Con escalar</div>
+      <button class="pmm-btn" id="pmm-esc" onclick="pmobileOp('esc',this)"><span class="pmm-sym">×k</span>Escalar ℤ</button>
+      <button class="pmm-btn" id="pmm-escf" onclick="pmobileOp('escf',this)"><span class="pmm-sym">×f</span>Escalar ℝ</button>
+    </div>
+    <div class="pmm-section">
+      <div class="pmm-section-title">Binarias</div>
+      <button class="pmm-btn" id="pmm-add" onclick="pmobileOp('add',this)"><span class="pmm-sym">A+B</span>Suma</button>
+      <button class="pmm-btn" id="pmm-mul" onclick="pmobileOp('mul',this)"><span class="pmm-sym">A·B</span>Producto</button>
+    </div>
+  </div>
+  <!-- Modular ops -->
+  <div id="pmm-modular-ops" style="display:none">
+    <div class="pmm-section">
+      <div class="pmm-section-title">Módulo</div>
+      <button class="pmm-btn active" id="pmm-mmod" onclick="pmobileOp('mmod',this)"><span class="pmm-sym">A%m</span>Módulo</button>
+      <button class="pmm-btn" id="pmm-minv" onclick="pmobileOp('minv',this)"><span class="pmm-sym">A⁻¹</span>Inversa mod</button>
+    </div>
+    <div class="pmm-section">
+      <div class="pmm-section-title">Con escalar</div>
+      <button class="pmm-btn" id="pmm-mesc" onclick="pmobileOp('mesc',this)"><span class="pmm-sym">k·m</span>Escalar mod</button>
+    </div>
+    <div class="pmm-section">
+      <div class="pmm-section-title">Binarias</div>
+      <button class="pmm-btn" id="pmm-madd" onclick="pmobileOp('madd',this)"><span class="pmm-sym">+m</span>Suma mod</button>
+      <button class="pmm-btn" id="pmm-mmul" onclick="pmobileOp('mmul',this)"><span class="pmm-sym">·m</span>Producto mod</button>
+    </div>
+  </div>
+</div>
 
 <div class="config-bar">
   <span class="cfg-label">Dimensión</span>
@@ -107,14 +171,12 @@
   <div class="b-bracket">]</div>
   <span class="op-sym-big" id="op-sym-display">+</span>
   <span style="font-family:var(--mono);font-size:9px;color:var(--txt3)">↑ presiona ejecutar abajo</span>
-  <div class="b-transfer-group">
-    <button class="b-xfer-btn" onclick="transferB2A()" title="Copiar valores de B a A">B → A</button>
-    <button class="b-xfer-btn" onclick="swapAB()" title="Intercambiar A y B">A ↔ B</button>
-    <button class="b-xfer-btn" onclick="transferA2B()" title="Copiar valores de A a B">A → B</button>
+  <div class="b-transfer-group" id="b-transfer-group">
+    <button class="b-xfer-only-swap" onclick="swapAB()" title="Intercambiar A y B">A ↔ B</button>
   </div>
 </div>
 
-<div class="workspace">
+<div class="workspace" id="workspace">
   <!-- LEFT: scalar -->
   <div class="left-panel hidden" id="left-panel">
     <div class="sc-group" id="sc-k" style="display:none">
@@ -125,6 +187,17 @@
       <span class="sc-lbl">factor f</span>
       <input type="number" class="sc-inp" id="inp-f" value="0.5" step="0.1"/>
     </div>
+  </div>
+
+  <!-- TABLET B-AREA (injected by JS when needed) -->
+  <div class="b-area-tablet" id="b-area-tablet" style="display:none">
+    <span class="b-lbl-t">Matriz B</span>
+    <div class="b-wrap">
+      <div class="a-bracket">[</div>
+      <div id="b-grid-tablet"></div>
+      <div class="a-bracket">]</div>
+    </div>
+    <button class="run-btn" style="font-size:9px;padding:5px 14px" onclick="swapAB()">A ↔ B</button>
   </div>
 
   <!-- CENTER -->

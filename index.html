@@ -11,14 +11,24 @@
 <body>
 
 <header>
-  <a class="logo" href="#" onclick="showPage('home')">AT</a>
+  <a class="logo" href="#" onclick="showPage('home');return false">AT</a>
   <nav class="nav-links">
     <a class="nav-link active" href="#" onclick="showPage('home');return false">Home</a>
     <a class="nav-link" href="#" onclick="showPage('projects');return false">Projects</a>
     <a class="nav-link" href="https://github.com/AintTavo" target="_blank">GitHub ↗</a>
   </nav>
   <div class="nav-right">SYS · NANO · WASM</div>
+  <button class="burger-btn" id="burger-btn" aria-label="Menu" onclick="toggleBurger()">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+
+<!-- Mobile overlay menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a class="mobile-menu-link active" href="#" id="mob-home" onclick="mobileNav('home');return false">Home</a>
+  <a class="mobile-menu-link" href="#" id="mob-projects" onclick="mobileNav('projects');return false">Projects</a>
+  <a class="mobile-menu-link" href="https://github.com/AintTavo" target="_blank">GitHub ↗</a>
+</div>
 
 <!-- ══════════════ HOME ══════════════ -->
 <div id="page-home" class="page active">

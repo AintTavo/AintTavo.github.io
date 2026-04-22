@@ -20,8 +20,13 @@ const opHints    = {
   madd:'(A+B) mod m', mmul:'(A·B) mod m', mesc:'(k·A) mod m',
 };
 
+// ── Responsive helpers ─────────────────────────────────────
+function isMobile(){ return window.innerWidth <= 640; }
+function isTablet(){ return window.innerWidth > 640 && window.innerWidth <= 960; }
+
 function buildGrid(id, n, cellCls, size) {
   const el = document.getElementById(id);
+  if (!el) return;
   el.innerHTML = '';
   const g = document.createElement('div');
   g.style.cssText = 'display:flex;flex-direction:column;gap:'+(cellCls==='a-cell'?5:4)+'px';
@@ -42,7 +47,6 @@ function buildGrid(id, n, cellCls, size) {
   }
   el.appendChild(g);
 
-  // Enter-key navigation
   const isA = (id === 'a-grid');
   cells.forEach((inp, idx) => {
     inp.addEventListener('keydown', e => {
@@ -52,11 +56,9 @@ function buildGrid(id, n, cellCls, size) {
       if (next) {
         next.focus(); next.select();
       } else if (isA && binaryOps.has(op)) {
-        // A finished, binary op → jump to first cell of B
-        const bFirst = document.querySelector('#b-grid input');
+        const bFirst = document.querySelector('#b-grid input, #b-grid-tablet input');
         if (bFirst) { bFirst.focus(); bFirst.select(); }
       } else {
-        // last cell of A (unary) or last cell of B → execute
         window.runOp();
       }
     });
@@ -64,12 +66,33 @@ function buildGrid(id, n, cellCls, size) {
 }
 
 function readGrid(id){
-  return Array.from(document.getElementById(id).querySelectorAll('input')).map(c=>parseInt(c.value)||0);
+  const el = document.getElementById(id);
+  if (!el) return new Array(dim*dim).fill(0);
+  return Array.from(el.querySelectorAll('input')).map(c=>parseInt(c.value)||0);
+}
+
+// Read B grid from whichever is active (tablet uses b-grid-tablet)
+function readB(){
+  if (isTablet() && binaryOps.has(op)){
+    return readGrid('b-grid-tablet');
+  }
+  return readGrid('b-grid');
+}
+
+function syncBGrids(){
+  // keep b-grid and b-grid-tablet in sync
+  const src = document.getElementById('b-grid');
+  const dst = document.getElementById('b-grid-tablet');
+  if (!src || !dst) return;
+  const srcCells = src.querySelectorAll('input');
+  const dstCells = dst.querySelectorAll('input');
+  srcCells.forEach((c,i)=>{ if(dstCells[i]) dstCells[i].value = c.value; });
 }
 
 function rebuild(){
   buildGrid('a-grid', dim, 'a-cell');
   buildGrid('b-grid', dim, 'b-cell');
+  buildGrid('b-grid-tablet', dim, 'a-cell'); // tablet uses same size cells
   updateUI();
 }
 
@@ -79,14 +102,92 @@ function updateUI(){
   const needsF  = scalarFOps.has(op);
   const needsLeft = needsK || needsF;
 
-  document.getElementById('b-bar').classList.toggle('show', isBin);
+  // Desktop b-bar
+  if (!isMobile() && !isTablet()) {
+    document.getElementById('b-bar').classList.toggle('show', isBin);
+  } else if (isMobile()) {
+    document.getElementById('b-bar').classList.toggle('show', isBin);
+  }
+
+  // Tablet b-area
+  const bAreaTablet = document.getElementById('b-area-tablet');
+  if (isTablet()) {
+    bAreaTablet.style.display = isBin ? 'flex' : 'none';
+    document.getElementById('b-bar').classList.remove('show');
+  } else {
+    bAreaTablet.style.display = 'none';
+  }
+
   document.getElementById('left-panel').classList.toggle('hidden', !needsLeft);
   document.getElementById('sc-k').style.display = needsK ? 'flex':'none';
   document.getElementById('sc-f').style.display = needsF ? 'flex':'none';
   document.getElementById('op-sym-display').textContent = opSymbols[op]||'';
   document.getElementById('run-hint').textContent = opHints[op]||op;
   document.getElementById('mod-wrap').classList.toggle('show', mode==='modular');
+
+  // sync pmm mod visibility
+  const pmmModWrap = document.getElementById('pmm-mod-wrap');
+  if (pmmModWrap) pmmModWrap.style.display = mode==='modular' ? 'flex' : 'none';
 }
+
+// ── Burger menu ────────────────────────────────────────────
+window.toggleP3Burger = () => {
+  const btn = document.getElementById('p3-burger');
+  const menu = document.getElementById('p3-mobile-menu');
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+};
+
+window.pmobileSetMode = (m) => {
+  mode = m;
+  document.getElementById('pmm-pure-ops').style.display   = m==='pure'?'block':'none';
+  document.getElementById('pmm-modular-ops').style.display= m==='modular'?'block':'none';
+  document.getElementById('pmm-mode-pure').classList.toggle('active', m==='pure');
+  document.getElementById('pmm-mode-modular').classList.toggle('active', m==='modular');
+  document.getElementById('pmm-mod-wrap').style.display = m==='modular'?'flex':'none';
+
+  // also update desktop mode tabs
+  document.querySelectorAll('.mode-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tb-pure').style.display   = m==='pure'?'flex':'none';
+  document.getElementById('tb-modular').style.display= m==='modular'?'flex':'none';
+  const firstDesktopBtn=document.querySelector(`#tb-${m} .tb-btn`);
+  if(firstDesktopBtn){ firstDesktopBtn.classList.add('active'); op=firstDesktopBtn.getAttribute('onclick').match(/'(\w+)'/)[1]; }
+  // pick first mobile op for this mode
+  const firstMobileOp = m==='pure' ? 'det' : 'mmod';
+  op = firstMobileOp;
+  document.querySelectorAll('.pmm-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pmm-'+firstMobileOp)?.classList.add('active');
+
+  updateUI(); clearResult();
+};
+
+window.pmobileDim = (n) => {
+  dim = n;
+  document.querySelectorAll('.dim-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pmm-dim'+n).classList.add('active');
+  // also sync desktop dim buttons
+  document.querySelectorAll('.dim-btn').forEach(b=>{
+    b.classList.toggle('active', b.textContent === n+'×'+n);
+  });
+  rebuild(); clearResult();
+};
+
+window.pmobileOp = (o, btn) => {
+  op = o;
+  document.querySelectorAll('.pmm-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  // close menu
+  document.getElementById('p3-burger').classList.remove('open');
+  document.getElementById('p3-mobile-menu').classList.remove('open');
+  updateUI(); clearResult();
+};
+
+window.syncMod = (val) => {
+  document.getElementById('global-mod').value = val;
+};
+
+// Resize handler
+window.addEventListener('resize', () => updateUI());
 
 function clearResult(){
   document.getElementById('res-display').innerHTML='<div class="res-empty">—</div>';
@@ -125,10 +226,12 @@ function showErr(msg){
 window.runOp = () => {
   if(!wasmReady){document.getElementById('wasm-notice').classList.add('show');return;}
   const A=new Int32Array(readGrid('a-grid'));
-  const B=new Int32Array(readGrid('b-grid'));
+  const B=new Int32Array(readB());
   const k=parseInt(document.getElementById('inp-k').value)||1;
   const f=parseFloat(document.getElementById('inp-f').value)||1.0;
-  const m=parseInt(document.getElementById('global-mod').value)||26;
+  // use pmm mod if mobile/tablet and that input is visible
+  const modEl = (isMobile()||isTablet()) ? document.getElementById('pmm-global-mod') : document.getElementById('global-mod');
+  const m=parseInt((modEl||document.getElementById('global-mod')).value)||26;
 
   try{
     let res, isFloat=false, isScalar=false;
@@ -151,7 +254,6 @@ window.runOp = () => {
     if(isScalar){ showScalar(res); return; }
     if(!res||res.length===0){ showErr('No existe<br>(det = 0 o sin inversa modular)'); return; }
     showMatrix(res, dim, isFloat);
-    // Show verification badge for successful modular inverse
     if(op==='minv'){
       const el=document.getElementById('res-display');
       el.insertAdjacentHTML('beforeend','<div class="res-verified">✓ Verificado Exitosamente</div>');
@@ -163,6 +265,8 @@ window.setDim=(n,btn)=>{
   dim=n;
   document.querySelectorAll('.dim-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
+  // sync pmm dim buttons
+  document.getElementById('pmm-dim'+n)?.classList.add('active');
   rebuild(); clearResult();
 };
 
@@ -172,30 +276,37 @@ window.setMode=(m,btn)=>{
   btn.classList.add('active');
   document.getElementById('tb-pure').style.display   = m==='pure'?'flex':'none';
   document.getElementById('tb-modular').style.display= m==='modular'?'flex':'none';
-  // pick first op of that toolbar
   const firstBtn=document.querySelector(`#tb-${m} .tb-btn`);
   if(firstBtn){ firstBtn.classList.add('active'); op=firstBtn.getAttribute('onclick').match(/'(\w+)'/)[1]; }
   updateUI(); clearResult();
 };
 
 window.transferB2A=()=>{
-  const bCells=document.querySelectorAll('#b-grid input');
+  const src = isTablet() && binaryOps.has(op) ? '#b-grid-tablet input' : '#b-grid input';
+  const bCells=document.querySelectorAll(src);
   const aCells=document.querySelectorAll('#a-grid input');
   bCells.forEach((b,i)=>{ if(aCells[i]) aCells[i].value=b.value; });
 };
 window.transferA2B=()=>{
   const aCells=document.querySelectorAll('#a-grid input');
-  const bCells=document.querySelectorAll('#b-grid input');
+  const dst = isTablet() && binaryOps.has(op) ? '#b-grid-tablet input' : '#b-grid input';
+  const bCells=document.querySelectorAll(dst);
   aCells.forEach((a,i)=>{ if(bCells[i]) bCells[i].value=a.value; });
 };
 window.swapAB=()=>{
   const aCells=document.querySelectorAll('#a-grid input');
-  const bCells=document.querySelectorAll('#b-grid input');
+  // swap with both grids to keep in sync
+  const bDesktop = document.querySelectorAll('#b-grid input');
+  const bTablet  = document.querySelectorAll('#b-grid-tablet input');
+  const bActive  = (isTablet() && binaryOps.has(op)) ? bTablet : bDesktop;
   aCells.forEach((a,i)=>{
-    if(bCells[i]){
-      const tmp=a.value; a.value=bCells[i].value; bCells[i].value=tmp;
+    if(bActive[i]){
+      const tmp=a.value; a.value=bActive[i].value; bActive[i].value=tmp;
     }
   });
+  // keep the other b-grid in sync
+  const bOther = (isTablet() && binaryOps.has(op)) ? bDesktop : bTablet;
+  bActive.forEach((b,i)=>{ if(bOther[i]) bOther[i].value = b.value; });
 };
 
 window.selectOp=(o,btn)=>{
