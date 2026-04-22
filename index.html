@@ -15,6 +15,7 @@
   <nav class="nav-links">
     <a class="nav-link active" href="#" onclick="showPage('home');return false">Home</a>
     <a class="nav-link" href="#" onclick="showPage('projects');return false">Projects</a>
+    <a class="nav-link" href="#" onclick="showPage('docs');return false">Docs</a>
     <a class="nav-link" href="https://github.com/AintTavo" target="_blank">GitHub ↗</a>
   </nav>
   <div class="nav-right">SYS · NANO · WASM</div>
@@ -27,6 +28,7 @@
 <div class="mobile-menu" id="mobile-menu">
   <a class="mobile-menu-link active" href="#" id="mob-home" onclick="mobileNav('home');return false">Home</a>
   <a class="mobile-menu-link" href="#" id="mob-projects" onclick="mobileNav('projects');return false">Projects</a>
+  <a class="mobile-menu-link" href="#" id="mob-docs" onclick="mobileNav('docs');return false">Docs</a>
   <a class="mobile-menu-link" href="https://github.com/AintTavo" target="_blank">GitHub ↗</a>
 </div>
 
@@ -187,6 +189,62 @@
 
   <div id="proj-grid" class="proj-grid">
     <!-- populated by JS -->
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════ DOCS ══════════════ -->
+<div id="page-docs" class="page">
+<div class="docs-wrap">
+
+  <div class="docs-header">
+    <div class="docs-header-tag">Documents</div>
+    <h1>Curriculum &amp; Certifications</h1>
+    <p>Official documents, language certificates and technical credentials.</p>
+  </div>
+
+  <!-- CV BLOCK -->
+  <div class="cv-block">
+    <div class="cv-block-left">
+      <div class="cv-icon-wrap">
+        <img src="./docs/png/cv-icon.png" alt="CV" class="cv-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div class="cv-logo-fallback">CV</div>
+      </div>
+      <div class="cv-meta">
+        <div class="cv-label">Curriculum Vitae</div>
+        <div class="cv-name">Gustavo Zaragoza Guerrero</div>
+        <div class="cv-desc">Computer Systems Engineer · Rust · IoT</div>
+      </div>
+    </div>
+    <a class="cv-btn" href="./docs/pdf/cv.pdf" target="_blank">
+      <span class="cv-btn-icon">↓</span>
+      <span>Open CV</span>
+    </a>
+  </div>
+
+  <!-- LANGUAGE CERTS -->
+  <div class="docs-section">
+    <div class="docs-sec-header">
+      <span class="docs-sec-num">01</span>
+      <span class="docs-sec-title">Language Certificates</span>
+      <div class="docs-sec-line"></div>
+    </div>
+    <div id="lang-cert-grid" class="cert-grid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+
+  <!-- TECHNICAL CERTS -->
+  <div class="docs-section">
+    <div class="docs-sec-header">
+      <span class="docs-sec-num">02</span>
+      <span class="docs-sec-title">Certifications</span>
+      <div class="docs-sec-line"></div>
+    </div>
+    <div id="tech-cert-grid" class="cert-grid">
+      <!-- populated by JS -->
+    </div>
   </div>
 
 </div>
