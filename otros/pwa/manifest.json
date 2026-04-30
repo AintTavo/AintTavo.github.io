@@ -1,0 +1,42 @@
+{
+    "name" : "PWA Practica 7 : Dungeon crawler",
+    "short_name" : "PWA: Dungeon crawler",
+    "description" : "A progresive web app made for the 7th practice of the dristributed systems, the focus is to make a dungeon crawler in a PWA",
+
+    "scope" : "./",
+    "start_url" : "./index.html",
+    "display" : "standalone",
+    "orientation" : "portrait-primary",
+
+    "background_color" : "#08080a",
+    "theme_color" : "#08080a",
+    "lang" : "es",
+
+    "categories": [
+        "games",
+        "entertainment"
+    ],
+
+    "icons" : [
+        {
+            "src" : "./docs/png/logo/logo_192x192.png",
+            "type" : "image/png",
+            "sizes" : "192x192",
+            "purpose" : "any"
+        },
+        {
+            "src" : "./docs/png/logo/logo_512x512.png",
+            "type" : "image/png",
+            "sizes" : "512x512",
+            "purpose" : "maskable"
+        }
+    ],
+
+    "shortcuts" : [
+        {
+            "name": "Iniciar Mazmorra",
+            "url": "./index.html#game",
+            "description": "Ir directamente al juego"
+        }
+    ]
+}
