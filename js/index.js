@@ -42,7 +42,7 @@ const projects = [
     name: 'Modus Operandi',
     icon: 'MO',
     desc: 'An example application of cipher modes of operation like ECB, CBC, CFB, OFB, PCBC & CTR with Hill Cipher, all implemented with cipher and decipher.',
-    tags: ['wasm', 'rust', 'linear-algebra', 'cryptography'],
+    tags: ['wasm', 'rust', 'cryptography'],
     path: 'html/modus_operandi.html',
   }
 ];
