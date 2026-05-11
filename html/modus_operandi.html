@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>modus operandi — Hill Cipher</title>
+<link rel="icon" type="image/png" href="../docs/png/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/modus_operandi.css"/>
+</head>
+<body>
+
+<header>
+  <div class="logo" href="#" onclick="window.location.assign('../index.html')">MO</div>
+  <div class="mode-tabs">
+    <button class="mode-tab active" data-action="cipher">Cifrar</button>
+    <button class="mode-tab" data-action="decipher">Descifrar</button>
+  </div>
+  <div class="hdr-right">WASM · RUST · HILL</div>
+</header>
+
+<div class="workspace">
+
+  <!-- LEFT – Operation modes -->
+  <div class="left-panel">
+    <span class="lp-title">Modo</span>
+    <div class="mode-group">
+      <button class="mode-btn" data-mode="ecb">ECB</button>
+      <button class="mode-btn active" data-mode="cbc">CBC</button>
+      <button class="mode-btn" data-mode="cfb">CFB</button>
+      <button class="mode-btn" data-mode="ofb">OFB</button>
+      <button class="mode-btn" data-mode="pcbc">PCBC</button>
+      <button class="mode-btn" data-mode="ctr">CTR</button>
+    </div>
+  </div>
+
+  <!-- CENTER -->
+  <div class="center-panel">
+
+    <!-- Parameter rows -->
+    <div class="input-area">
+
+      <!-- msg / cipher_text row -->
+      <div class="param-row" id="row-msg">
+        <span class="param-label" id="label-msg">msg</span>
+        <div class="cell-scroll" id="scroll-msg">
+          <div class="cell-inner" id="cells-msg"></div>
+        </div>
+      </div>
+
+      <!-- c₀ / iv row -->
+      <div class="param-row" id="row-iv" style="display:none">
+        <span class="param-label">c₀</span>
+        <div class="cell-scroll" id="scroll-iv">
+          <div class="cell-inner" id="cells-iv"></div>
+        </div>
+      </div>
+
+      <!-- key row -->
+      <div class="param-row" id="row-key">
+        <span class="param-label">key</span>
+        <div class="cell-scroll" id="scroll-key">
+          <div class="cell-inner" id="cells-key"></div>
+        </div>
+      </div>
+      <!-- key info (determinant & inverse) -->
+      <div class="key-info-row">
+        <span class="kinfo-label">det</span>
+        <span class="kinfo-val" id="key-det">—</span>
+        <span class="kinfo-label">inv</span>
+        <span class="kinfo-val kinfo-inv" id="key-inv">—</span>
+      </div>
+
+      <!-- nonce row (decipher CTR only) -->
+      <div class="param-row" id="row-nonce" style="display:none">
+        <span class="param-label">nonce</span>
+        <div class="cell-scroll" id="scroll-nonce">
+          <div class="cell-inner" id="cells-nonce"></div>
+        </div>
+      </div>
+
+      <!-- padding row (decipher only) -->
+      <div class="param-row" id="row-padding" style="display:none">
+        <span class="param-label">padding</span>
+        <input type="number" class="pad-input" id="inp-padding" value="0" min="0"/>
+      </div>
+
+      <!-- modulus row -->
+      <div class="param-row" id="row-mod">
+        <span class="param-label">m</span>
+        <input type="number" class="mod-input" id="inp-mod" value="26" min="2"/>
+        <span class="dim-hint" id="dim-hint">block: 1</span>
+      </div>
+
+    </div>
+
+    <!-- Action -->
+    <div class="action-row">
+      <button class="action-btn" id="action-btn">Cifrar</button>
+    </div>
+
+    <!-- Result -->
+    <div class="result-area" id="result-area" style="display:none">
+      <span class="result-caption" id="result-caption">Cipher Text</span>
+      <div class="cell-scroll res-scroll" id="scroll-result">
+        <div class="cell-inner" id="cells-result"></div>
+      </div>
+      <div class="result-meta">
+        <span class="meta-item">Padding: <strong id="res-padding">—</strong></span>
+        <span class="meta-item" id="res-iv-wrap" style="display:none">c₀: [<span id="res-iv">—</span>]</span>
+        <span class="meta-item" id="res-nonce-wrap" style="display:none">nonce: [<span id="res-nonce">—</span>]</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="module" src="../js/modus_operandi/modus_operandi_glue.js"></script>
+</body>
+</html>

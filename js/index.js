@@ -37,6 +37,14 @@ const projects = [
     tags: ['wasm', 'rust', 'linear-algebra', 'cryptography'],
     path: 'html/practica-3.html',
   },
+  {
+    id: 'modusoperandi',
+    name: 'Modus Operandi',
+    icon: 'MO',
+    desc: 'An example application of cipher modes of operation like ECB, CBC, CFB, OFB, PCBC & CTR with Hill Cipher, all implemented with cipher and decipher.',
+    tags: ['wasm', 'rust', 'linear-algebra', 'cryptography'],
+    path: 'html/modus_operandi.html',
+  }
 ];
 
 function renderProjects() {
