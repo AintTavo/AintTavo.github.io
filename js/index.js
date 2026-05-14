@@ -30,6 +30,14 @@ function mobileNav(id) {
 // ── Projects list ─────────────────────────────────────────
 const projects = [
   {
+    id: 'estenography',
+    name: 'Hide & Show | Stenography',
+    icon: 'HS',
+    desc: 'A web-base stenography tool for bmp images.',
+    tags: ['wasm', 'C', 'Stenography'],
+    path: 'html/hide_show.html'
+  },
+  {
     id: 'matrixlab',
     name: 'MatrixLab',
     icon: 'ML',
