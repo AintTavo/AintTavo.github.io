@@ -3,7 +3,7 @@ function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
-  const pageOrder = ['home', 'projects', 'docs'];
+  const pageOrder = ['home', 'projects', 'docs', 'babbage'];
   const idx = pageOrder.indexOf(id);
   document.querySelectorAll('.nav-link')[idx]?.classList.add('active');
   window.scrollTo(0, 0);
@@ -77,7 +77,6 @@ function renderProjects() {
 }
 
 // ── Docs / Certifications ─────────────────────────────────
-// Language certificates — update logo, pdf path, description as needed
 const langCerts = [
   /*
   {
@@ -91,26 +90,15 @@ const langCerts = [
   */
 ];
 
-// Technical / other certificates
 const techCerts = [
-  /*
   {
-    name: 'Rust Programming Fundamentals',
-    logo: './docs/png/certs/rust.png',
-    logoFallback: 'RS',
-    desc: 'Completion certificate for systems programming in Rust — ownership model, borrowing, lifetimes, and safe concurrency patterns.',
-    tags: ['Rust', 'Systems', 'Programming'],
-    pdf: './docs/pdf/certs/rust-fundamentals.pdf',
-  },
-  */
- {
-  name: 'Talent Land',
-  logo: '../docs/png/cert_talentland.png',
-  logoFallback: 'TL',
-  desc: 'Participation certificate for attending as a Volunteer in the Contents area on the year 2026',
-  tags: ['Soft Skills', 'Volunteer'],
-  pdf: '../html/doc-pages/cert_talentland.html',
- }
+    name: 'Talent Land',
+    logo: '../docs/png/cert_talentland.png',
+    logoFallback: 'TL',
+    desc: 'Participation certificate for attending as a Volunteer in the Contents area on the year 2026',
+    tags: ['Soft Skills', 'Volunteer'],
+    pdf: '../html/doc-pages/cert_talentland.html',
+  }
 ];
 
 function certCardHTML(cert) {
@@ -146,11 +134,11 @@ function renderDocs() {
     : '<div class="cert-empty">No certifications added yet.</div>';
 }
 
-// Intercept nav clicks
+// ── Nav link intercepts ───────────────────────────────────
 document.querySelectorAll('.nav-link').forEach((l, i) => {
-  if (i < 3) l.addEventListener('click', e => {
+  if (i < 4) l.addEventListener('click', e => {
     e.preventDefault();
-    const pages = ['home', 'projects', 'docs'];
+    const pages = ['home', 'projects', 'docs', 'babbage'];
     showPage(pages[i]);
   });
 });

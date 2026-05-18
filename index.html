@@ -1,253 +1,561 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AintTavo — Gustavo Zaragoza</title>
-<link rel="icon" type="image/png" href="./docs/png/logo.png">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="css/index.css"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/png" href="./docs/png/logo.png">
+  <link rel="stylesheet" href="./css/index.css"/>
 </head>
 <body>
 
+<!-- ── NAV ── -->
 <header>
-  <a class="logo" href="#" onclick="showPage('home');return false">AT</a>
+  <a class="logo" href="#" onclick="showPage('home');return false;">AT</a>
   <nav class="nav-links">
-    <a class="nav-link active" href="#" onclick="showPage('home');return false">Home</a>
-    <a class="nav-link" href="#" onclick="showPage('projects');return false">Projects</a>
-    <a class="nav-link" href="#" onclick="showPage('docs');return false">Docs</a>
-    <a class="nav-link" href="https://github.com/AintTavo" target="_blank">GitHub ↗</a>
+    <a class="nav-link active" href="#">Home</a>
+    <a class="nav-link" href="#">Projects</a>
+    <a class="nav-link" href="#">Docs</a>
   </nav>
-  <div class="nav-right">SYS · NANO · WASM</div>
-  <button class="burger-btn" id="burger-btn" aria-label="Menu" onclick="toggleBurger()">
+  <!-- Charles Babbage bio tab -->
+  <a class="nav-link babbage-tab" href="#" onclick="showPage('babbage');return false;">Babbage</a>
+  <!-- Github link -->
+  <a class="nav-link nav-gh" href="https://github.com/" target="_blank">GitHub ↗</a>
+  <div class="nav-right">v2.0</div>
+  <button class="burger-btn" id="burger-btn" onclick="toggleBurger()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 </header>
 
-<!-- Mobile overlay menu -->
+<!-- ── MOBILE MENU ── -->
 <div class="mobile-menu" id="mobile-menu">
-  <a class="mobile-menu-link active" href="#" id="mob-home" onclick="mobileNav('home');return false">Home</a>
-  <a class="mobile-menu-link" href="#" id="mob-projects" onclick="mobileNav('projects');return false">Projects</a>
-  <a class="mobile-menu-link" href="#" id="mob-docs" onclick="mobileNav('docs');return false">Docs</a>
-  <a class="mobile-menu-link" href="https://github.com/AintTavo" target="_blank">GitHub ↗</a>
+  <a class="mobile-menu-link active" id="mob-home" href="#" onclick="mobileNav('home')">Home</a>
+  <a class="mobile-menu-link" id="mob-projects" href="#" onclick="mobileNav('projects')">Projects</a>
+  <a class="mobile-menu-link" id="mob-docs" href="#" onclick="mobileNav('docs')">Docs</a>
+  <a class="mobile-menu-link" id="mob-babbage" href="#" onclick="mobileNav('babbage')">Babbage</a>
+  <a class="mobile-menu-link" href="https://github.com/" target="_blank">GitHub ↗</a>
 </div>
 
-<!-- ══════════════ HOME ══════════════ -->
-<div id="page-home" class="page active">
-<div class="home-wrap">
+<!-- ════════════════════════════════
+     HOME PAGE
+════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <div class="home-wrap">
 
-  <section class="hero">
-    <div class="hero-tag">Portfolio</div>
-    <div class="hero-name">Gustavo<br><span>Zaragoza</span></div>
-    <div class="hero-aka">a.k.a AintTavo</div>
-    <p class="hero-desc">
-      Computer Systems Engineer working at the intersection of high-performance systems, low-level programming, and emerging nanotechnology research. I build things that run fast, close to hardware, and occasionally in a browser via WebAssembly.
-    </p>
-    <div class="hero-badges">
-      <span class="badge hi">Rust</span>
-      <span class="badge hi">WebAssembly</span>
-      <span class="badge hi">C</span>
-      <span class="badge">Systems Eng.</span>
-      <span class="badge">IoT / LoRaWAN</span>
-      <span class="badge">Nanotechnology</span>
-      <span class="badge">Linux</span>
-    </div>
-  </section>
+    <!-- HERO -->
+    <section class="hero">
+      <!-- Hero layout: foto izq | nombre+desc | redes der -->
+      <div class="hero-layout">
 
-  <section class="section">
-    <div class="sec-header">
-      <span class="sec-num">01</span>
-      <span class="sec-title">Tech Stack</span>
-      <div class="sec-line"></div>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-block fade-up">
-        <div class="skill-block-title">Languages</div>
-        <div class="skill-tags">
-          <span class="skill-tag accent">Rust</span>
-          <span class="skill-tag accent">C</span>
-          <span class="skill-tag">JavaScript</span>
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">Bash</span>
+        <!-- Foto de perfil -->
+        <div class="hero-photo-col">
+          <div class="hero-photo-wrap">
+            <!-- Reemplaza src con tu imagen -->
+            <img class="hero-photo" src="./docs/png/me.png" alt="Foto de perfil"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="hero-photo-fallback">
+              <span>IMG</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="skill-block fade-up">
-        <div class="skill-block-title">Web & WASM</div>
-        <div class="skill-tags">
-          <span class="skill-tag accent">WebAssembly</span>
-          <span class="skill-tag accent">wasm-pack</span>
-          <span class="skill-tag">wasm-bindgen</span>
-          <span class="skill-tag">HTML / CSS</span>
-        </div>
-      </div>
-      <div class="skill-block fade-up">
-        <div class="skill-block-title">Systems</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Fedora KDE</span>
-          <span class="skill-tag">Ubuntu LTS</span>
-          <span class="skill-tag">macOS ARM</span>
-          <span class="skill-tag accent">systemd</span>
-          <span class="skill-tag">crontab</span>
-          <span class="skill-tag">rclone</span>
-        </div>
-      </div>
-      <div class="skill-block fade-up">
-        <div class="skill-block-title">IoT & Hardware</div>
-        <div class="skill-tags">
-          <span class="skill-tag accent">LoRaWAN</span>
-          <span class="skill-tag accent">MQTT</span>
-          <span class="skill-tag">AgroTech</span>
-          <span class="skill-tag">Sensors</span>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="sec-header">
-      <span class="sec-num">02</span>
-      <span class="sec-title">Learning Path</span>
-      <div class="sec-line"></div>
-    </div>
-    <div class="path-list">
-      <div class="path-item fade-up">
-        <div class="path-dot"></div>
-        <div>
-          <div class="path-label">Currently</div>
-          <div class="path-text">Preparing for a <strong>Master's in Nanotechnology</strong> — bridging computer engineering with molecular-scale systems design.</div>
+        <!-- Nombre + descripción (centro) -->
+        <div class="hero-center-col">
+          <div class="hero-tag">available for projects</div>
+          <h1 class="hero-name">Gustavo <span>Zaragoza</span><br/>Guerrero</h1>
+          <div class="hero-aka">a.k.a. AintTavo</div>
+          <p class="hero-desc">
+            Ingeniero en Sistemas Computacionales apasionado por la criptografía,
+            los sistemas de bajo nivel y el desarrollo web. Construyo herramientas
+            que combinan elegancia matemática con utilidad práctica.
+          </p>
+          <!-- Contacto -->
+          <div class="hero-contact">
+            <a class="contact-item" href="mailto:gustavo.25.zgo@gmail.com">
+              <span class="contact-icon">✉</span>
+              <span class="contact-text">gustavo.25.zgo@gmail.com</span>
+            </a>
+            <a class="contact-item" href="tel:+525585665693">
+              <span class="contact-icon">✆</span>
+              <span class="contact-text">+52 55 8566 5693</span>
+            </a>
+          </div>
+          <div class="hero-badges">
+            <span class="badge hi">Rust</span>
+            <span class="badge hi">C / C++</span>
+            <span class="badge hi">WebAssembly</span>
+            <span class="badge">Cryptography</span>
+            <span class="badge">Linux</span>
+            <span class="badge">Systems</span>
+          </div>
+        </div>
+
+        <!-- Redes sociales (derecha) -->
+        <div class="hero-social-col">
+          <div class="social-label">// links</div>
+          <div class="social-btns">
+            <a class="social-btn" href="https://github.com/AintTavo" target="_blank" title="GitHub">
+              <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              <span>GitHub</span>
+            </a>
+            <a class="social-btn" href="https://www.linkedin.com/in/gustavo-zaragoza-guerrero-266943391/" target="_blank" title="LinkedIn">
+              <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+            <a class="social-btn" href="https://https://x.com/aint_tavo" target="_blank" title="X / Twitter">
+              <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.254 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+              <span>X / Twitter</span>
+            </a>
+
+            <a class="social-btn" href="https://www.instagram.com/aint_tavo/" target="_blank" title="Instagram">
+              <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              <span>Instagram</span>
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /hero-layout -->
+    </section>
+
+    <!-- ── FORMACIÓN ACADÉMICA ── -->
+    <section class="section">
+      <div class="sec-header">
+        <span class="sec-num">01</span>
+        <span class="sec-title">Formación Académica</span>
+        <div class="sec-line"></div>
+      </div>
+      <div class="edu-list">
+        <div class="edu-item fade-up">
+          <div class="edu-left">
+            <div class="edu-period">2021 — Actualidad</div>
+            <div class="edu-status hi">En curso</div>
+          </div>
+          <div class="edu-connector">
+            <div class="edu-dot active"></div>
+            <div class="edu-line"></div>
+          </div>
+          <div class="edu-right">
+            <div class="edu-degree">Ingeniero en Sistemas Computacionales</div>
+            <div class="edu-school">ESCOM — IPN</div>
+            <div class="edu-school-full">Escuela Superior de Cómputo · Instituto Politécnico Nacional</div>
+            <div class="edu-tags">
+              <span class="edu-tag hi">Ingeniería</span>
+              <span class="edu-tag">Sistemas Computacionales</span>
+              <span class="edu-tag">IPN</span>
+            </div>
+          </div>
+        </div>
+        <div class="edu-item fade-up">
+          <div class="edu-left">
+            <div class="edu-period">2018 — 2021</div>
+            <div class="edu-status">Completado</div>
+          </div>
+          <div class="edu-connector">
+            <div class="edu-dot"></div>
+            <div class="edu-line"></div>
+          </div>
+          <div class="edu-right">
+            <div class="edu-degree">Técnico en Computación</div>
+            <div class="edu-school">CECyT No. 3 "Estanislao Ramírez Ruiz"</div>
+            <div class="edu-school-full">Centro de Estudios Científicos y Tecnológicos · IPN</div>
+            <div class="edu-tags">
+              <span class="edu-tag hi">Técnico</span>
+              <span class="edu-tag">Computación</span>
+              <span class="edu-tag">CECyT</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="path-item fade-up">
-        <div class="path-dot"></div>
-        <div>
-          <div class="path-label">Research Focus</div>
-          <div class="path-text">Exploring the <strong>application of software engineering in nanotech</strong> — simulation, control systems, and data pipelines for nano-scale hardware.</div>
+    </section>
+
+    <!-- ── SKILLS ── -->
+    <section class="section">
+      <div class="sec-header">
+        <span class="sec-num">02</span>
+        <span class="sec-title">Stack Técnico</span>
+        <div class="sec-line"></div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-block">
+          <div class="skill-block-title">Lenguajes</div>
+          <div class="skill-tags">
+            <span class="skill-tag accent">Rust</span>
+            <span class="skill-tag accent">C</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Bash</span>
+          </div>
+        </div>
+        <div class="skill-block">
+          <div class="skill-block-title">Tecnologías</div>
+          <div class="skill-tags">
+            <span class="skill-tag accent">WebAssembly</span>
+            <span class="skill-tag">Linux</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">HTML/CSS</span>
+          </div>
+        </div>
+        <div class="skill-block">
+          <div class="skill-block-title">Áreas</div>
+          <div class="skill-tags">
+            <span class="skill-tag accent">Criptografía</span>
+            <span class="skill-tag">Álgebra Lineal</span>
+            <span class="skill-tag">Sistemas</span>
+            <span class="skill-tag">Redes</span>
+            <span class="skill-tag">Esteganografía</span>
+          </div>
         </div>
       </div>
-      <div class="path-item fade-up">
-        <div class="path-dot"></div>
-        <div>
-          <div class="path-label">Languages</div>
-          <div class="path-text"><strong>Spanish</strong> (Native) · <strong>English</strong> (B2) · <strong>German</strong> (B1)</div>
+    </section>
+
+    <!-- ── IDIOMAS ── -->
+    <section class="section">
+      <div class="sec-header">
+        <span class="sec-num">03</span>
+        <span class="sec-title">Idiomas</span>
+        <div class="sec-line"></div>
+      </div>
+      <div class="lang-grid">
+        <div class="lang-card fade-up">
+          <div class="lang-flag" title="Español">🇲🇽</div>
+          <div class="lang-info">
+            <div class="lang-name">Español</div>
+            <div class="lang-level">Nativo</div>
+          </div>
+          <span class="lang-badge hi">C2</span>
+        </div>
+        <div class="lang-card fade-up">
+          <div class="lang-flag" title="English">🇬🇧</div>
+          <div class="lang-info">
+            <div class="lang-name">English</div>
+            <div class="lang-level">Advanced</div>
+          </div>
+          <span class="lang-badge">B2</span>
+        </div>
+        <div class="lang-card fade-up">
+          <div class="lang-flag" title="Deutsch">🇩🇪</div>
+          <div class="lang-info">
+            <div class="lang-name">Deutsch</div>
+            <div class="lang-level">Intermedio</div>
+          </div>
+          <span class="lang-badge">B1</span>
         </div>
       </div>
-      <div class="path-item fade-up">
-        <div class="path-dot"></div>
-        <div>
-          <div class="path-label">Side Track</div>
-          <div class="path-text">Compiling <strong>Rust → WebAssembly</strong> to ship performance-critical algorithms directly in the browser with no runtime overhead.</div>
+    </section>
+
+    <!-- ── HOBBIES ── -->
+    <section class="section">
+      <div class="sec-header">
+        <span class="sec-num">04</span>
+        <span class="sec-title">Más allá del código</span>
+        <div class="sec-line"></div>
+      </div>
+      <div class="hobbies-grid">
+
+        <div class="hobby-card fade-up">
+          <div class="hobby-img-wrap">
+            <!-- Reemplaza src con tu imagen 1:1 -->
+            <img class="hobby-img" src="./docs/png/lecture.png" alt="Lectura"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="hobby-img-fallback">📚</div>
+          </div>
+          <div class="hobby-icon">📚</div>
+          <div class="hobby-title">Leer</div>
+          <div class="hobby-text">Ciencia ficción, filosofía, matemáticas recreativas. Los libros son el mejor compilador de ideas.</div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="sec-header">
-      <span class="sec-num">03</span>
-      <span class="sec-title">Beyond the Code</span>
-      <div class="sec-line"></div>
-    </div>
-    <div class="beyond-grid">
-      <div class="beyond-card fade-up">
-        <div class="beyond-icon">☕</div>
-        <div class="beyond-title">French Press Ritual</div>
-        <div class="beyond-text">Brewing the perfect cup is a repeatable experiment — grind size, water temp, steep time. Optimized.</div>
-      </div>
-      <div class="beyond-card fade-up">
-        <div class="beyond-icon">♪</div>
-        <div class="beyond-title">The Cure & MCR</div>
-        <div class="beyond-text">Post-punk and emo for late-night debug sessions. Disintegration and Three Cheers on repeat.</div>
-      </div>
-      <div class="beyond-card fade-up">
-        <div class="beyond-icon">🔬</div>
-        <div class="beyond-title">Nano Dreams</div>
-        <div class="beyond-text">Reading about molecular machines and wondering how to deploy a Rust binary at 10nm scale.</div>
-      </div>
-    </div>
-  </section>
+        <div class="hobby-card fade-up">
+          <div class="hobby-img-wrap">
+            <img class="hobby-img" src="./docs/png/writing.png" alt="Escritura"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="hobby-img-fallback">✍️</div>
+          </div>
+          <div class="hobby-icon">✍️</div>
+          <div class="hobby-title">Escribir</div>
+          <div class="hobby-text">Ficción especulativa y ensayos técnicos. Escribir es debuggear el pensamiento.</div>
+        </div>
 
-</div>
-<div class="footer">
-  <div class="footer-dot"></div>
-  <span>Gustavo Zaragoza Guerrero</span>
-  <div class="footer-dot"></div>
-  <span>AintTavo</span>
-  <div class="footer-dot"></div>
-  <span>Computer Systems Engineer</span>
-</div>
-</div>
+        <div class="hobby-card fade-up">
+          <div class="hobby-img-wrap">
+            <img class="hobby-img" src="./docs/png/videogame.png" alt="Videojuegos"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="hobby-img-fallback">🎮</div>
+          </div>
+          <div class="hobby-icon">🎮</div>
+          <div class="hobby-title">Videojuegos</div>
+          <div class="hobby-text">RPGs, estrategia y juegos indie. Los mundos interactivos son las novelas del siglo XXI.</div>
+        </div>
 
-<!-- ══════════════ PROJECTS ══════════════ -->
-<div id="page-projects" class="page">
-<div class="proj-wrap">
+        <div class="hobby-card fade-up">
+          <div class="hobby-img-wrap">
+            <img class="hobby-img" src="./docs/png/miniature.png" alt="Pintura de miniaturas"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="hobby-img-fallback">🎨</div>
+          </div>
+          <div class="hobby-icon">🎨</div>
+          <div class="hobby-title">Pintura de Miniaturas</div>
+          <div class="hobby-text">Warhammer y fantástico. Donde la paciencia y el arte se fusionan en escala 1:56.</div>
+        </div>
 
-  <div class="proj-header">
-    <div class="proj-header-tag">Projects</div>
-    <h1>WASM &amp; Systems</h1>
-    <p>High-performance modules compiled from Rust, running in the browser.</p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-dot"></div>
+      <span>Built with purpose · ESCOM / IPN</span>
+      <div class="footer-dot"></div>
+      <span style="color:var(--acc)">tu@correo.com</span>
+    </footer>
+
   </div>
-
-  <div id="proj-grid" class="proj-grid">
-    <!-- populated by JS -->
-  </div>
-
-</div>
 </div>
 
-<!-- ══════════════ DOCS ══════════════ -->
-<div id="page-docs" class="page">
-<div class="docs-wrap">
-
-  <div class="docs-header">
-    <div class="docs-header-tag">Documents</div>
-    <h1>Curriculum &amp; Certifications</h1>
-    <p>Official documents, language certificates and technical credentials.</p>
+<!-- ════════════════════════════════
+     PROJECTS PAGE
+════════════════════════════════ -->
+<div class="page" id="page-projects">
+  <div class="proj-wrap">
+    <div class="proj-header">
+      <div class="proj-header-tag">selected work</div>
+      <h1>Proyectos</h1>
+      <p>Herramientas, experimentos y demostraciones técnicas.</p>
+    </div>
+    <div class="proj-grid" id="proj-grid"></div>
   </div>
+</div>
 
-  <!-- CV BLOCK -->
-  <div class="cv-block">
-    <div class="cv-block-left">
-      <div class="cv-icon-wrap">
-        <img src="./docs/png/cv-icon.png" alt="CV" class="cv-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <div class="cv-logo-fallback">CV</div>
+<!-- ════════════════════════════════
+     DOCS PAGE
+════════════════════════════════ -->
+<div class="page" id="page-docs">
+  <div class="docs-wrap">
+    <div class="docs-header">
+      <div class="docs-header-tag">documents & credentials</div>
+      <h1>Documentación</h1>
+      <p>Certificados, credenciales y materiales de referencia.</p>
+    </div>
+
+    <!-- CV block -->
+    <div class="cv-block">
+      <div class="cv-block-left">
+        <div class="cv-icon-wrap">
+          <img class="cv-logo" src="./docs/png/cv-logo.png" alt="CV"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="cv-logo-fallback">CV</div>
+        </div>
+        <div class="cv-meta">
+          <div class="cv-label">Curriculum Vitae</div>
+          <div class="cv-name">Resumen Profesional</div>
+          <div class="cv-desc">Experiencia, formación académica y proyectos destacados — actualizado 2026.</div>
+        </div>
       </div>
-      <div class="cv-meta">
-        <div class="cv-label">Curriculum Vitae</div>
-        <div class="cv-name">Gustavo Zaragoza Guerrero</div>
-        <div class="cv-desc">Computer Systems Engineer · Rust · IoT</div>
+      <a class="cv-btn" href="./html/doc-pages/cv.html" target="_blank">
+        <span class="cv-btn-icon">↓</span> Descargar CV
+      </a>
+    </div>
+
+    <div class="cv-block">
+      <div class="cv-block-left">
+        <div class="cv-icon-wrap">
+          <img class="cv-logo" src="./docs/png/cv-logo.png" alt="RSA"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="cv-logo-fallback">CV</div>
+        </div>
+        <div class="cv-meta">
+          <div class="cv-label">Llave personal en RSA</div>
+          <div class="cv-name">RSA Public Key</div>
+          <div class="cv-desc">Mandar mensajes cifrados a partir de una llave publica</div>
+        </div>
       </div>
+      <a class="cv-btn" href="./docs/keys/rsa_pub.key" target="_blank">
+        <span class="cv-btn-icon">↓</span> Descargar Llave
+      </a>
     </div>
-    <a class="cv-btn" href="./html/doc-pages/cv.html" target="_blank">
-      <span class="cv-btn-icon">↓</span>
-      <span>Open CV</span>
-    </a>
-  </div>
 
-  <!-- LANGUAGE CERTS -->
-  <div class="docs-section">
-    <div class="docs-sec-header">
-      <span class="docs-sec-num">01</span>
-      <span class="docs-sec-title">Language Certificates</span>
-      <div class="docs-sec-line"></div>
+    <!-- Language certs -->
+    <div class="docs-section">
+      <div class="docs-sec-header">
+        <span class="docs-sec-num">01</span>
+        <span class="docs-sec-title">Certificados de Idioma</span>
+        <div class="docs-sec-line"></div>
+      </div>
+      <div class="cert-grid" id="lang-cert-grid"></div>
     </div>
-    <div id="lang-cert-grid" class="cert-grid">
-      <!-- populated by JS -->
-    </div>
-  </div>
 
-  <!-- TECHNICAL CERTS -->
-  <div class="docs-section">
-    <div class="docs-sec-header">
-      <span class="docs-sec-num">02</span>
-      <span class="docs-sec-title">Certifications</span>
-      <div class="docs-sec-line"></div>
-    </div>
-    <div id="tech-cert-grid" class="cert-grid">
-      <!-- populated by JS -->
+    <!-- Tech certs -->
+    <div class="docs-section">
+      <div class="docs-sec-header">
+        <span class="docs-sec-num">02</span>
+        <span class="docs-sec-title">Certificaciones Técnicas</span>
+        <div class="docs-sec-line"></div>
+      </div>
+      <div class="cert-grid" id="tech-cert-grid"></div>
     </div>
   </div>
-
 </div>
+
+<!-- ════════════════════════════════
+     BABBAGE PAGE
+════════════════════════════════ -->
+<div class="page" id="page-babbage">
+  <div class="babbage-wrap">
+
+    <div class="babbage-header">
+      <div class="babbage-header-tag">figura histórica</div>
+      <h1>Charles Babbage</h1>
+      <p class="babbage-subtitle">El padre de la computación · 1791 – 1871</p>
+    </div>
+
+    <!-- Layout: bio izquierda | foto derecha -->
+    <div class="babbage-layout">
+
+      <!-- Columna principal de bio -->
+      <div class="babbage-bio-col">
+
+        <div class="babbage-section">
+          <div class="babbage-sec-label">// 01 · Origen</div>
+          <!-- Espacio para imagen 1:1 -->
+          <div class="babbage-img-wrap">
+            <img class="babbage-img" src="./docs/png/babbage/charles_babbage.png" alt="Babbage joven"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="babbage-img-fallback">
+              <span>Imagen · Origen</span>
+            </div>
+          </div>
+          <p class="babbage-p">
+            Charles Babbage nació el 26 de diciembre de 1791 en Londres, Inglaterra. Hijo de un banquero,
+            creció en una familia acomodada que le permitió acceder a una educación de primer nivel.
+            Desde joven demostró un talento extraordinario para las matemáticas, llegando a estudiar en el
+            Trinity College y el Peterhouse de Cambridge, donde se graduó en 1814.
+          </p>
+          <p class="babbage-p">
+            Su insatisfacción con los errores en las tablas matemáticas de la época —calculadas a mano por
+            equipos de personas— sembró la semilla de lo que se convertiría en la obsesión de su vida:
+            construir una máquina capaz de calcular sin error.
+          </p>
+        </div>
+
+        <div class="babbage-section">
+          <div class="babbage-sec-label">// 02 · La Máquina Diferencial</div>
+          <!-- Espacio para imagen 1:1 -->
+          <div class="babbage-img-wrap">
+            <img class="babbage-img" src="./docs/png/babbage/difference_engine_1.png" alt="Máquina Diferencial"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="babbage-img-fallback">
+              <span>Imagen · Máquina Diferencial</span>
+            </div>
+          </div>
+          <p class="babbage-p">
+            En 1822 Babbage propuso la <strong>Difference Engine No. 1</strong>: una máquina mecánica capaz
+            de calcular y tabular funciones polinomiales. Obtuvo financiamiento del gobierno británico y
+            pasó décadas tratando de construirla, aunque el proyecto nunca se completó en vida del inventor
+            debido a conflictos con el maquinista Joseph Clement y la complejidad de las piezas requeridas.
+          </p>
+          <p class="babbage-p">
+            El London Science Museum completó la Difference Engine No. 2 —diseñada entre 1847 y 1849— en
+            1991, demostrando que los planos de Babbage eran correctos y funcionales. La máquina tiene
+            4,000 piezas y pesa 2.6 toneladas.
+          </p>
+        </div>
+
+        <div class="babbage-section">
+          <div class="babbage-sec-label">// 03 · La Máquina Analítica</div>
+          <!-- Espacio para imagen 1:1 -->
+          <div class="babbage-img-wrap">
+            <img class="babbage-img" src="./docs/png/babbage/analytical_engine.png" alt="Máquina Analítica"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="babbage-img-fallback">
+              <span>Imagen · Máquina Analítica</span>
+            </div>
+          </div>
+          <p class="babbage-p">
+            La verdadera revolución llegó con la <strong>Analytical Engine</strong>, concebida a partir de
+            1837. Este diseño era radicalmente diferente: incluía una <em>Mill</em> (unidad de procesamiento
+            análoga a una CPU moderna), un <em>Store</em> (memoria para 1,000 números de 50 dígitos),
+            tarjetas perforadas de entrada tomadas de los telares Jacquard, y salidas impresas.
+          </p>
+          <p class="babbage-p">
+            La matemática Ada Lovelace —con quien Babbage colaboró estrechamente— tradujo y amplió las
+            notas del ingeniero militar italiano Luigi Menabrea sobre la máquina. Sus anotaciones incluían
+            lo que hoy se reconoce como el primer algoritmo publicado para ser procesado por una máquina,
+            convirtiéndola en la primera programadora de la historia.
+          </p>
+        </div>
+
+        <div class="babbage-section">
+          <div class="babbage-sec-label">// 04 · Legado</div>
+          <!-- Espacio para imagen 1:1 -->
+          <div class="babbage-img-wrap">
+            <img class="babbage-img" src="./docs/png/babbage/legacy.png" alt="Legado de Babbage"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="babbage-img-fallback">
+              <span>Imagen · Legado</span>
+            </div>
+          </div>
+          <p class="babbage-p">
+            Babbage murió el 18 de octubre de 1871 sin haber completado ninguna de sus máquinas. Sin
+            embargo, sus diseños contenían conceptos que resurgirían un siglo después: control de flujo
+            condicional, bucles, subrutinas y la separación entre programa y datos. Alan Turing, John von
+            Neumann y los pioneros del siglo XX construyeron, sin saberlo, sobre los cimientos que Babbage
+            había imaginado en papel y latón.
+          </p>
+          <p class="babbage-p">
+            Más allá de la computación, Babbage fue un polímata activo: contribuyó a la criptografía
+            (descubrió un método para descifrar el cifrado de Vigenère, aunque no lo publicó), fundó la
+            Royal Astronomical Society y escribió tratados sobre economía industrial. Su libro
+            <em>On the Economy of Machinery and Manufactures</em> (1832) anticipó conceptos de
+            la cadena de producción moderna.
+          </p>
+          <div class="babbage-quote">
+            <span class="babbage-quote-mark">"</span>
+            En dos ocasiones me han preguntado: 'Dígame, señor Babbage, si mete números equivocados en la máquina, ¿saldrán respuestas correctas?' No soy capaz de comprender correctamente qué tipo de confusión de ideas podría provocar tal pregunta.
+            <span class="babbage-quote-attr">— Charles Babbage</span>
+          </div>
+        </div>
+
+      </div><!-- /babbage-bio-col -->
+
+      <!-- Sidebar de datos rápidos -->
+      <aside class="babbage-sidebar">
+        <div class="babbage-card">
+          <div class="babbage-card-label">Nacimiento</div>
+          <div class="babbage-card-val">26 dic 1791</div>
+          <div class="babbage-card-sub">Londres, Inglaterra</div>
+        </div>
+        <div class="babbage-card">
+          <div class="babbage-card-label">Fallecimiento</div>
+          <div class="babbage-card-val">18 oct 1871</div>
+          <div class="babbage-card-sub">Londres, Inglaterra · 79 años</div>
+        </div>
+        <div class="babbage-card">
+          <div class="babbage-card-label">Profesión</div>
+          <div class="babbage-card-val">Matemático</div>
+          <div class="babbage-card-sub">Filósofo · Inventor · Economista</div>
+        </div>
+        <div class="babbage-card hi">
+          <div class="babbage-card-label">Conocido por</div>
+          <div class="babbage-card-val">Padre de la<br/>Computación</div>
+        </div>
+        <div class="babbage-card">
+          <div class="babbage-card-label">Instituciones</div>
+          <div class="babbage-card-val">Cambridge</div>
+          <div class="babbage-card-sub">Trinity · Peterhouse · 1810–1814</div>
+        </div>
+        <div class="babbage-card">
+          <div class="babbage-card-label">Inventos clave</div>
+          <div class="babbage-card-val">Difference Engine</div>
+          <div class="babbage-card-sub">Analytical Engine · Cálculo de tablas</div>
+        </div>
+      </aside>
+
+    </div><!-- /babbage-layout -->
+  </div>
 </div>
 
 <script src="./js/index.js"></script>
